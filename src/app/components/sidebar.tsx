@@ -1,35 +1,31 @@
-"use client";   
+"use client";
 
 import * as React from "react";
 import { extendTheme } from "@mui/material/styles";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import HomeIcon from "@mui/icons-material/Home";
 import { AppProvider, Navigation } from "@toolpad/core";
-import { DashboardLayout } from "@toolpad/core/DashboardLayout";
-
-// Pages
-import HomePage from "../home/page"; // Importez vos fichiers page.tsx
-import AnalyticsPage from "../analytics/page";
+import DashboardLayout from "./dashboard-layout";
+import HomeIcon from "@mui/icons-material/Home";
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 const NAVIGATION: Navigation = [
   {
-    segment: 'home',
-    title: 'Home',
+    segment: "home",
+    title: "Home",
     icon: <HomeIcon />,
   },
   {
-    kind: 'divider',
+    kind: "divider",
   },
   {
-    segment: 'analytics',
-    title: 'Analytics',
+    segment: "analytics",
+    title: "Analytics",
     icon: <BarChartIcon />,
   },
 ];
 
 const demoTheme = extendTheme({
   colorSchemes: { light: true, dark: true },
-  colorSchemeSelector: 'class',
+  colorSchemeSelector: "class",
   breakpoints: {
     values: {
       xs: 0,
@@ -48,27 +44,14 @@ interface Router {
 }
 
 function useDemoRouter(initialPath: string): Router {
-    const [pathname, setPathname] = React.useState(initialPath);
-  
-    const router = React.useMemo(() => {
-      return {
-        pathname,
-        searchParams: new URLSearchParams(),
-        navigate: (path: string | URL) => {
-          setPathname(String(path));
-        },
-      };
-    }, [pathname]);
-  
-    return router;
-  }
+  const [pathname, setPathname] = React.useState(initialPath);
 
-// const Skeleton = styled('div')<{ height: number }>(({ theme, height }) => ({
-//   backgroundColor: theme.palette.action.hover,
-//   borderRadius: theme.shape.borderRadius,
-//   height,
-//   content: '" "',
-// }));
+  return React.useMemo(() => ({
+    pathname,
+    searchParams: new URLSearchParams(),
+    navigate: (path: string | URL) => setPathname(String(path)),
+  }), [pathname]);
+}
 
 interface DashboardLayoutBasicProps {
   window?: () => Window;
@@ -76,23 +59,8 @@ interface DashboardLayoutBasicProps {
 
 export default function DashboardLayoutBasic(props: DashboardLayoutBasicProps) {
   const { window } = props;
-
-  const router = useDemoRouter('/dashboard');
-
-  // Remove this const when copying and pasting into your project.
+  const router = useDemoRouter("/dashboard");
   const demoWindow = window ? window() : undefined;
-  function CustomAppTitle() {
-    return <div style={{ fontSize: '1.25rem', color: 'var(--mui-palette-primary-main)', fontWeight: '700', display: 'flex', alignItems: 'center' }}>CSVA</div>;
-  }
-
-  const renderContent = () => {
-    switch (router.pathname) {
-      case '/home':
-        return <HomePage />;
-      case '/analytics':
-        return <AnalyticsPage />;
-    }
-  };
 
   return (
     <AppProvider
@@ -101,9 +69,7 @@ export default function DashboardLayoutBasic(props: DashboardLayoutBasicProps) {
       theme={demoTheme}
       window={demoWindow}
     >
-      <DashboardLayout slots={{ appTitle: CustomAppTitle }}>
-        {renderContent()}
-      </DashboardLayout>
+      <DashboardLayout router={router} />
     </AppProvider>
   );
 }
