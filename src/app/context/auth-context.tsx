@@ -45,8 +45,10 @@ export function AuthProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      setUser((prevUser) =>
+        prevUser?.uid !== authUser?.uid ? authUser : prevUser
+      );
       setLoading(false);
     });
 

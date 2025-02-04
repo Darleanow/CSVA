@@ -14,7 +14,9 @@ export default function AuthGuard({
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/");
+      if (window.location.pathname !== "/") {
+        router.push("/");
+      }
     }
   }, [user, loading, router]);
 
