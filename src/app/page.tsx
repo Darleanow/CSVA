@@ -10,9 +10,9 @@ export default function Home() {
 
   if (loading) {
     return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">Loading...</div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">Loading...</div>
+      </div>
     );
   }
 
@@ -21,9 +21,5 @@ export default function Home() {
     return null;
   }
 
-  return (
-      <main className="min-h-screen flex items-center justify-center">
-          <LoginForm />
-      </main>
-  );
+  return <LoginForm />;
 }
