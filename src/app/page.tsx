@@ -22,14 +22,8 @@ export default function Home() {
   }
 
   return (
-      <main className="min-h-screen flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold">Welcome to CSV Analyzer</h1>
-            <p className="text-gray-600 mt-2">Please sign in to continue</p>
-          </div>
+      <main className="min-h-screen flex items-center justify-center">
           <LoginForm />
-        </div>
       </main>
   );
 }
