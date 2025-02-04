@@ -3,7 +3,7 @@
 import { useAuth } from "../context/auth-context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
+import { CircularProgress } from "@mui/material";
 export default function AuthGuard({
   children,
 }: {
@@ -21,7 +21,11 @@ export default function AuthGuard({
   }, [user, loading, router]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen w-screen flex items-center justify-center">
+        <CircularProgress size={40} />
+      </div>
+    );
   }
 
   if (!user) {
