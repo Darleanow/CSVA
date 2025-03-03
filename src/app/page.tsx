@@ -2,32 +2,91 @@
 
 import { useAuth } from "./context/auth-context";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { Box, Typography, Button, CircularProgress, Paper } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
 
 export default function Home() {
   const { user, signIn, loading } = useAuth();
   const router = useRouter();
 
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/dashboard");
+    }
+  }, [user, loading, router]);
+
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Box 
+        sx={{ 
+          minHeight: '100vh', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center' 
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (user) {
-    router.push("/dashboard");
-    return null;
+    return (
+      <Box 
+        sx={{ 
+          minHeight: '100vh', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          justifyContent: 'center' 
+        }}
+      >
+        <CircularProgress sx={{ mb: 3 }} />
+        <Typography variant="h6">Redirection vers le tableau de bord...</Typography>
+      </Box>
+    );
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Welcome to CSV Analyzer</h1>
-        <p className="text-gray-600">Please sign in to continue</p>
-        <button
+    <Box 
+      sx={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center' 
+      }}
+    >
+      <Paper 
+        elevation={3}
+        sx={{ 
+          p: 4, 
+          maxWidth: '450px', 
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Typography variant="h3" component="h1" sx={{ mb: 2, fontWeight: 'bold' }}>
+          CSV Analyzer
+        </Typography>
+        
+        <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', textAlign: 'center' }}>
+          Connectez-vous pour commencer à analyser vos fichiers CSV
+        </Typography>
+        
+        <Button
+          variant="contained"
+          size="large"
+          startIcon={<GoogleIcon />}
           onClick={signIn}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          fullWidth
+          sx={{ py: 1.5 }}
         >
-          Sign in with Google
-        </button>
-      </div>
-    </main>
+          Se connecter avec Google
+        </Button>
+      </Paper>
+    </Box>
   );
 }
