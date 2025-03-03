@@ -6,11 +6,13 @@ import { AppProvider, Navigation } from "@toolpad/core";
 import DashboardLayout from "./dashboard-layout";
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const NAVIGATION: Navigation = [
   {
-    segment: "home",
-    title: "Home",
+    segment: "dashboard",
+    title: "Dashboard",
     icon: <HomeIcon />,
   },
   {
@@ -43,24 +45,38 @@ interface Router {
   navigate: (path: string | URL) => void;
 }
 
-function useDemoRouter(initialPath: string): Router {
-  const [pathname, setPathname] = React.useState(initialPath);
+function useDemoRouter() {
+  const router = useRouter();
 
-  return React.useMemo(() => ({
-    pathname,
+  return {
+    pathname: router.pathname,
     searchParams: new URLSearchParams(),
-    navigate: (path: string | URL) => setPathname(String(path)),
-  }), [pathname]);
+    navigate: (path: string | URL) => {
+      if (router.pathname !== String(path)) {
+        router.push(String(path));
+      }
+    },
+  };
 }
 
-interface DashboardLayoutBasicProps {
+
+interface SidebarProps {
+  children: React.ReactNode;
   window?: () => Window;
 }
 
-export default function DashboardLayoutBasic(props: DashboardLayoutBasicProps) {
-  const { window } = props;
-  const router = useDemoRouter("/dashboard");
+export default function Sidebar({ children, window }: SidebarProps) {
+  const [mounted, setMounted] = useState(false);
+  const router = useDemoRouter();
   const demoWindow = window ? window() : undefined;
+
+  useEffect(() => {
+    setMounted(true);
+  }, [mounted]);
+
+  if (!mounted) {
+    return <div style={{ visibility: 'hidden' }}>{children}</div>;
+  }
 
   return (
     <AppProvider
@@ -69,7 +85,9 @@ export default function DashboardLayoutBasic(props: DashboardLayoutBasicProps) {
       theme={demoTheme}
       window={demoWindow}
     >
-      <DashboardLayout router={router} />
+      <DashboardLayout router={router}>
+        {children}
+      </DashboardLayout>
     </AppProvider>
   );
 }
