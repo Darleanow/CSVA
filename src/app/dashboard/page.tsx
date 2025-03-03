@@ -25,6 +25,9 @@ import {
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import NoteClientChart from './note-client-chart';
+import QuantiteChart from './quantite-chart';
+import PrixChart from './prix-chart';
 
 // Mise à jour des interfaces pour correspondre au format de données réel
 interface Statistics {
@@ -137,51 +140,112 @@ export default function Dashboard() {
         </Alert>
       );
     }
+
+    const noteClientData = [
+      { name: 'Moyenne', value: stats.Note_Client.mean },
+      { name: 'Médiane', value: stats.Note_Client['50%'] },
+      { name: 'Écart-type', value: stats.Note_Client.std },
+    ];
+  
+    const prixData = [
+      { name: 'Moyenne', value: stats.Prix.mean },
+      { name: 'Médiane', value: stats.Prix['50%'] },
+      { name: 'Écart-type', value: stats.Prix.std },
+    ];
+  
+    const quantiteData = [
+      { name: 'Moyenne', value: stats.Quantite.mean },
+      { name: 'Médiane', value: stats.Quantite['50%'] },
+      { name: 'Écart-type', value: stats.Quantite.std },
+    ];
     
     return (
+      // <Grid container spacing={3}>
+      //   {Object.entries(stats).map(([key, value]) => (
+      //     <Grid item xs={12} md={4} key={key}>
+      //       <Card variant="outlined">
+      //         <CardHeader
+      //           title={key}
+      //           titleTypographyProps={{ variant: 'h6' }}
+      //           sx={{ pb: 0 }}
+      //         />
+      //         <CardContent>
+      //           <Box sx={{ mb: 1 }}>
+      //             <Typography variant="body2" color="text.secondary">
+      //               Moyenne
+      //             </Typography>
+      //             <Typography variant="body1" fontWeight="medium">
+      //               {value.mean.toFixed(2)}
+      //             </Typography>
+      //           </Box>
+      //           <Divider sx={{ my: 1 }} />
+      //           <Box sx={{ mb: 1 }}>
+      //             <Typography variant="body2" color="text.secondary">
+      //               Médiane
+      //             </Typography>
+      //             <Typography variant="body1" fontWeight="medium">
+      //               {value['50%'].toFixed(2)}
+      //             </Typography>
+      //           </Box>
+      //           <Divider sx={{ my: 1 }} />
+      //           <Box>
+      //             <Typography variant="body2" color="text.secondary">
+      //               Écart-type
+      //             </Typography>
+      //             <Typography variant="body1" fontWeight="medium">
+      //               {value.std.toFixed(2)}
+      //             </Typography>
+      //           </Box>
+      //         </CardContent>
+      //       </Card>
+      //     </Grid>
+      //   ))}
+      // </Grid>
+
       <Grid container spacing={3}>
-        {Object.entries(stats).map(([key, value]) => (
-          <Grid item xs={12} md={4} key={key}>
-            <Card variant="outlined">
-              <CardHeader
-                title={key}
-                titleTypographyProps={{ variant: 'h6' }}
-                sx={{ pb: 0 }}
-              />
-              <CardContent>
-                <Box sx={{ mb: 1 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    Moyenne
-                  </Typography>
-                  <Typography variant="body1" fontWeight="medium">
-                    {value.mean.toFixed(2)}
-                  </Typography>
-                </Box>
-                <Divider sx={{ my: 1 }} />
-                <Box sx={{ mb: 1 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    Médiane
-                  </Typography>
-                  <Typography variant="body1" fontWeight="medium">
-                    {value['50%'].toFixed(2)}
-                  </Typography>
-                </Box>
-                <Divider sx={{ my: 1 }} />
-                <Box>
-                  <Typography variant="body2" color="text.secondary">
-                    Écart-type
-                  </Typography>
-                  <Typography variant="body1" fontWeight="medium">
-                    {value.std.toFixed(2)}
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+        <Grid item xs={12} md={4}>
+          <Card variant="outlined">
+            <CardHeader
+              title="Note Client"
+              titleTypographyProps={{ variant: 'h6' }}
+              sx={{ pb: 0 }}
+            />
+            <CardContent>
+              <NoteClientChart data={noteClientData} />
+            </CardContent>
+          </Card>
+        </Grid>
+      <Grid item xs={12} md={4}>
+        <Card variant="outlined">
+          <CardHeader
+            title="Prix"
+            titleTypographyProps={{ variant: 'h6' }}
+            sx={{ pb: 0 }}
+          />
+          <CardContent>
+            <PrixChart data={prixData} />
+          </CardContent>
+        </Card>
       </Grid>
+      <Grid item xs={12} md={4}>
+        <Card variant="outlined">
+          <CardHeader
+            title="Quantité"
+            titleTypographyProps={{ variant: 'h6' }}
+            sx={{ pb: 0 }}
+          />
+          <CardContent>
+            <QuantiteChart data={quantiteData} />
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
+
     );
+    
   };
+
+  
 
   return (
     <AuthGuard>
