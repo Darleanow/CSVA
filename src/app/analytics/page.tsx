@@ -1,15 +1,11 @@
-import styles from "./page.module.css";
+import { Container, Typography } from "@mui/material";
 
 export default function Analytics() {
   return (
-    <div className={styles.container}>
-        <div className={styles.title}>
-            <h1>Home &gt; Analytics</h1>
-        </div>
-        <div className={styles.content}>
-            <h1>Overview</h1>
-        </div>
-    
-    </div>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Typography variant="h4" component="h1" fontWeight="bold">
+        Analytics
+      </Typography>
+    </Container>
   );
 }
