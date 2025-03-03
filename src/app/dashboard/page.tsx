@@ -26,11 +26,16 @@ import {
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 
+// Mise à jour des interfaces pour correspondre au format de données réel
 interface Statistics {
-  moyenne: number;
-  mediane: number;
-  'ecart-type': number;
-  'resume complet': Record<string, number>;
+  count: number;
+  mean: number;
+  std: number;
+  min: number;
+  '25%': number;
+  '50%': number;
+  '75%': number;
+  max: number;
 }
 
 interface ColumnStatistics {
@@ -43,8 +48,12 @@ interface Anomaly {
 }
 
 interface AnalysisResults {
-  statistics: ColumnStatistics;
+  jwt_token_hash: string;
+  analysis_id: string;
+  stats: ColumnStatistics;
   anomalies: Anomaly[];
+  csv_url: string;
+  json_url: string;
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -107,7 +116,8 @@ export default function Dashboard() {
         throw new Error(`Erreur HTTP: ${response.status} - ${errorText}`);
       }
 
-      const data: AnalysisResults = await response.json();
+      const data = await response.json();
+      console.log(data);
       setResults(data);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Une erreur inconnue est survenue';
@@ -118,7 +128,16 @@ export default function Dashboard() {
     }
   };
 
-  const renderStatistics = (stats: ColumnStatistics) => {
+  const renderStatistics = (stats: ColumnStatistics | undefined) => {
+    // Vérifier si stats existe et n'est pas vide
+    if (!stats || Object.keys(stats).length === 0) {
+      return (
+        <Alert severity="info">
+          Aucune statistique disponible
+        </Alert>
+      );
+    }
+    
     return (
       <Grid container spacing={3}>
         {Object.entries(stats).map(([key, value]) => (
@@ -135,7 +154,7 @@ export default function Dashboard() {
                     Moyenne
                   </Typography>
                   <Typography variant="body1" fontWeight="medium">
-                    {value.moyenne.toFixed(2)}
+                    {value.mean.toFixed(2)}
                   </Typography>
                 </Box>
                 <Divider sx={{ my: 1 }} />
@@ -144,7 +163,7 @@ export default function Dashboard() {
                     Médiane
                   </Typography>
                   <Typography variant="body1" fontWeight="medium">
-                    {value.mediane.toFixed(2)}
+                    {value['50%'].toFixed(2)}
                   </Typography>
                 </Box>
                 <Divider sx={{ my: 1 }} />
@@ -153,7 +172,7 @@ export default function Dashboard() {
                     Écart-type
                   </Typography>
                   <Typography variant="body1" fontWeight="medium">
-                    {value['ecart-type'].toFixed(2)}
+                    {value.std.toFixed(2)}
                   </Typography>
                 </Box>
               </CardContent>
@@ -244,7 +263,7 @@ export default function Dashboard() {
               <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                 Statistiques
               </Typography>
-              {renderStatistics(results.statistics)}
+              {renderStatistics(results.stats)}
             </Paper>
 
             <Paper elevation={3} sx={{ p: 3 }}>
