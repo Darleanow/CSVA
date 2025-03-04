@@ -641,9 +641,9 @@ export default function PreviousAnalyses() {
   return (
     <AuthGuard>
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <AppBar position="static" elevation={0} color="default" sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+        <AppBar position="static" elevation={0} color="default" sx={{ paddingTop: "calc(4 * var(--mui-spacing))" }}>
+          <Toolbar sx={{ maxHeight: "fit-content" }}>
+            <Typography variant="h4" component="h1" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
               Historique des analyses
             </Typography>
             <Button 
