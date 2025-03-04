@@ -160,48 +160,6 @@ export default function Dashboard() {
     ];
     
     return (
-      // <Grid container spacing={3}>
-      //   {Object.entries(stats).map(([key, value]) => (
-      //     <Grid item xs={12} md={4} key={key}>
-      //       <Card variant="outlined">
-      //         <CardHeader
-      //           title={key}
-      //           titleTypographyProps={{ variant: 'h6' }}
-      //           sx={{ pb: 0 }}
-      //         />
-      //         <CardContent>
-      //           <Box sx={{ mb: 1 }}>
-      //             <Typography variant="body2" color="text.secondary">
-      //               Moyenne
-      //             </Typography>
-      //             <Typography variant="body1" fontWeight="medium">
-      //               {value.mean.toFixed(2)}
-      //             </Typography>
-      //           </Box>
-      //           <Divider sx={{ my: 1 }} />
-      //           <Box sx={{ mb: 1 }}>
-      //             <Typography variant="body2" color="text.secondary">
-      //               Médiane
-      //             </Typography>
-      //             <Typography variant="body1" fontWeight="medium">
-      //               {value['50%'].toFixed(2)}
-      //             </Typography>
-      //           </Box>
-      //           <Divider sx={{ my: 1 }} />
-      //           <Box>
-      //             <Typography variant="body2" color="text.secondary">
-      //               Écart-type
-      //             </Typography>
-      //             <Typography variant="body1" fontWeight="medium">
-      //               {value.std.toFixed(2)}
-      //             </Typography>
-      //           </Box>
-      //         </CardContent>
-      //       </Card>
-      //     </Grid>
-      //   ))}
-      // </Grid>
-
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
           <Card variant="outlined">
@@ -254,14 +212,6 @@ export default function Dashboard() {
           <Typography variant="h4" component="h1" fontWeight="bold">
             Dashboard
           </Typography>
-          <Button 
-            variant="outlined" 
-            color="error" 
-            onClick={signOut}
-            size="small"
-          >
-            Déconnexion
-          </Button>
         </Box>
 
         <Paper

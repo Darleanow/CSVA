@@ -8,6 +8,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/auth-context";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 
 const NAVIGATION: Navigation = [
   {
@@ -16,13 +19,19 @@ const NAVIGATION: Navigation = [
     icon: <HomeIcon />,
   },
   {
-    kind: "divider",
-  },
-  {
     segment: "analytics",
     title: "Analytics",
     icon: <BarChartIcon />,
   },
+  {
+    kind: "divider",
+  },
+  {
+    segment: "logout",
+    title: "Déconnexion",
+    icon: <LogoutIcon />,
+  },
+  
 ];
 
 const demoTheme = extendTheme({
@@ -39,12 +48,6 @@ const demoTheme = extendTheme({
   },
 });
 
-interface Router {
-  pathname: string;
-  searchParams: URLSearchParams;
-  navigate: (path: string | URL) => void;
-}
-
 function useDemoRouter() {
   const router = useRouter();
 
@@ -59,7 +62,6 @@ function useDemoRouter() {
   };
 }
 
-
 interface SidebarProps {
   children: React.ReactNode;
   window?: () => Window;
@@ -69,6 +71,7 @@ export default function Sidebar({ children, window }: SidebarProps) {
   const [mounted, setMounted] = useState(false);
   const router = useDemoRouter();
   const demoWindow = window ? window() : undefined;
+  const { signOut } = useAuth();
 
   useEffect(() => {
     setMounted(true);
