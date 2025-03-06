@@ -7,10 +7,8 @@ import DashboardLayout from "./dashboard-layout";
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../context/auth-context";
+import { useRouter, usePathname } from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 
 const NAVIGATION: Navigation = [
   {
@@ -31,7 +29,6 @@ const NAVIGATION: Navigation = [
     title: "Déconnexion",
     icon: <LogoutIcon />,
   },
-  
 ];
 
 const demoTheme = extendTheme({
@@ -50,12 +47,13 @@ const demoTheme = extendTheme({
 
 function useDemoRouter() {
   const router = useRouter();
+  const pathname = usePathname();
 
   return {
-    pathname: router.pathname,
+    pathname: pathname,
     searchParams: new URLSearchParams(),
     navigate: (path: string | URL) => {
-      if (router.pathname !== String(path)) {
+      if (pathname !== String(path)) {
         router.push(String(path));
       }
     },
@@ -67,11 +65,10 @@ interface SidebarProps {
   window?: () => Window;
 }
 
-export default function Sidebar({ children, window }: SidebarProps) {
+export default function Sidebar({ children, window }: Readonly<SidebarProps>) {
   const [mounted, setMounted] = useState(false);
   const router = useDemoRouter();
   const demoWindow = window ? window() : undefined;
-  const { signOut } = useAuth();
 
   useEffect(() => {
     setMounted(true);
