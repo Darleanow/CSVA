@@ -165,7 +165,7 @@ export default function PreviousAnalyses() {
             const token = await user.getIdToken();
 
 
-            const response = await fetch(`https://get-user-analyses-165250746259.europe-north1.run.app/`, {
+            const response = await fetch(`https://get-user-analyses-165250746259.europe-north1.run.app/download-file?id=${analysisId}&type=${fileType}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
