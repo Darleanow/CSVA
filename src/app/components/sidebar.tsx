@@ -3,7 +3,7 @@
 import * as React from "react";
 import { extendTheme } from "@mui/material/styles";
 import { AppProvider, Navigation } from "@toolpad/core";
-import DashboardLayout from "./dashboard-layout";
+import DashboardLayout from "@/components/dashboard-layout";
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { useState, useEffect } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
-import AuthGuard from "../components/auth-guard";
-import { useAuth } from "../context/auth-context";
+import AuthGuard from "@/components/auth-guard";
+import { useAuth } from "@/context/auth-context";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import {
   Container,
@@ -24,11 +24,10 @@ import {
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
-import NoteClientChart from './note-client-chart';
-import QuantiteChart from './quantite-chart';
-import PrixChart from './prix-chart';
+import NoteClientChart from '@/dashboard/note-client-chart';
+import QuantiteChart from '@/dashboard/quantite-chart';
+import PrixChart from '@/dashboard/prix-chart';
 
-// Mise à jour des interfaces pour correspondre au format de données réel
 interface Statistics {
   count: number;
   mean: number;
@@ -131,7 +130,6 @@ export default function Dashboard() {
   };
 
   const renderStatistics = (stats: ColumnStatistics | undefined) => {
-    // Vérifier si stats existe et n'est pas vide
     if (!stats || Object.keys(stats).length === 0) {
       return (
         <Alert severity="info">

@@ -1,7 +1,7 @@
 "use client";
 
-import AuthGuard from "../components/auth-guard";
-import { useAuth } from "../context/auth-context";
+import AuthGuard from "@/components/auth-guard";
+import { useAuth } from "@/context/auth-context";
 import React, { useState, useEffect } from 'react';
 import {
     Container,
@@ -66,7 +66,6 @@ interface Anomaly {
     Errors: string[];
 }
 
-// Style personnalisé pour les cartes avec hover effect
 const StyledCard = styled(Card)(({ theme }) => ({
     height: '100%',
     transition: 'transform 0.2s, box-shadow 0.2s',
@@ -76,7 +75,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
     },
 }));
 
-// Header de section stylisé
 const SectionHeader = styled(Typography)(({ theme }) => ({
     position: 'relative',
     marginBottom: theme.spacing(3),

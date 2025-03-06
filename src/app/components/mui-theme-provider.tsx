@@ -3,7 +3,7 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 
-export default function MuiThemeProvider({ children }: { children: ReactNode }) {
+export default function MuiThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
     const [mounted, setMounted] = useState(false);
 
     const darkTheme = createTheme({

@@ -10,7 +10,16 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const QuantiteChart = ({ data }) => {
+interface DataPoint {
+  name: string;
+  value: number;
+}
+
+interface QuantiteChartProps {
+  data: DataPoint[];
+}
+
+const QuantiteChart: React.FC<QuantiteChartProps> = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data}>
@@ -18,7 +27,7 @@ const QuantiteChart = ({ data }) => {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip
-          cursor={{ fill: '#FFF1D6', opacity: "0.8" }}
+          cursor={{ fill: '#FFF1D6', opacity: 0.8 }}
         />
         <Legend />
         <Bar dataKey="value" fill="#ffc658" />

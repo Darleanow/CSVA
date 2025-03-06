@@ -10,15 +10,24 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const NoteClientChart = ({ data }) => {
+interface DataPoint {
+  name: string;
+  value: number;
+}
+
+interface NoteClientChartProps {
+  data: DataPoint[];
+}
+
+const NoteClientChart: React.FC<NoteClientChartProps> = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="1000 1000" />
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip 
-          cursor={{ fill: '#C8E0F9', opacity: "0.8" }}
+        <Tooltip
+          cursor={{ fill: '#C8E0F9', opacity: 0.8 }}
         />
         <Legend />
         <Bar dataKey="value" fill="#1976d3" />
