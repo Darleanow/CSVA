@@ -21,7 +21,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Divider
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
@@ -72,7 +71,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function Dashboard() {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [results, setResults] = useState<AnalysisResults | null>(null);
@@ -146,19 +145,19 @@ export default function Dashboard() {
       { name: 'Médiane', value: stats.Note_Client['50%'] },
       { name: 'Écart-type', value: stats.Note_Client.std },
     ];
-  
+
     const prixData = [
       { name: 'Moyenne', value: stats.Prix.mean },
       { name: 'Médiane', value: stats.Prix['50%'] },
       { name: 'Écart-type', value: stats.Prix.std },
     ];
-  
+
     const quantiteData = [
       { name: 'Moyenne', value: stats.Quantite.mean },
       { name: 'Médiane', value: stats.Quantite['50%'] },
       { name: 'Écart-type', value: stats.Quantite.std },
     ];
-    
+
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
@@ -173,37 +172,37 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </Grid>
-      <Grid item xs={12} md={4}>
-        <Card variant="outlined">
-          <CardHeader
-            title="Prix"
-            titleTypographyProps={{ variant: 'h6' }}
-            sx={{ pb: 0 }}
-          />
-          <CardContent>
-            <PrixChart data={prixData} />
-          </CardContent>
-        </Card>
+        <Grid item xs={12} md={4}>
+          <Card variant="outlined">
+            <CardHeader
+              title="Prix"
+              titleTypographyProps={{ variant: 'h6' }}
+              sx={{ pb: 0 }}
+            />
+            <CardContent>
+              <PrixChart data={prixData} />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Card variant="outlined">
+            <CardHeader
+              title="Quantité"
+              titleTypographyProps={{ variant: 'h6' }}
+              sx={{ pb: 0 }}
+            />
+            <CardContent>
+              <QuantiteChart data={quantiteData} />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <Card variant="outlined">
-          <CardHeader
-            title="Quantité"
-            titleTypographyProps={{ variant: 'h6' }}
-            sx={{ pb: 0 }}
-          />
-          <CardContent>
-            <QuantiteChart data={quantiteData} />
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
 
     );
-    
+
   };
 
-  
+
 
   return (
     <AuthGuard>
@@ -270,7 +269,7 @@ export default function Dashboard() {
         {results && (
           <Box>
             <Typography variant="h5" gutterBottom sx={{ mb: 3, fontWeight: 'medium' }}>
-              Résultats de l'analyse
+              Résultats de l&apos;analyse
             </Typography>
 
             <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
