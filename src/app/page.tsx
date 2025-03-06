@@ -18,12 +18,12 @@ export default function Home() {
 
   if (loading) {
     return (
-      <Box 
-        sx={{ 
-          minHeight: '100vh', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center' 
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
       >
         <CircularProgress />
@@ -33,13 +33,13 @@ export default function Home() {
 
   if (user) {
     return (
-      <Box 
-        sx={{ 
-          minHeight: '100vh', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          justifyContent: 'center' 
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
       >
         <CircularProgress sx={{ mb: 3 }} />
@@ -49,19 +49,19 @@ export default function Home() {
   }
 
   return (
-    <Box 
-      sx={{ 
-        minHeight: '100vh', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}
     >
-      <Paper 
+      <Paper
         elevation={3}
-        sx={{ 
-          p: 4, 
-          maxWidth: '450px', 
+        sx={{
+          p: 4,
+          maxWidth: '450px',
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
@@ -71,11 +71,11 @@ export default function Home() {
         <Typography variant="h3" component="h1" sx={{ mb: 2, fontWeight: 'bold' }}>
           CSV Analyzer
         </Typography>
-        
+
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', textAlign: 'center' }}>
           Connectez-vous pour commencer à analyser vos fichiers CSV
         </Typography>
-        
+
         <Button
           variant="contained"
           size="large"
